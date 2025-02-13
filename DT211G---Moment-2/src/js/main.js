@@ -21,5 +21,6 @@ async function loadCourses() {
         console.table(data); // Skriver ut informationen i en tabell
     } catch(error) {
         console.error("error"); // Om något går fel skrivs felmeddelande ut
+        document.querySelector("#error").innerHTML = "<p>Fel vid anslutning - prova igen senare</p>";
     };
 }
