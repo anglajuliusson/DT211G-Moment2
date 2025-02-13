@@ -1,8 +1,6 @@
 "use strict"
 
-let coursename = [];
-let progression = [];
-let coursecode = [];
+let courses = [];
 
 // Funktionen körs när sidan har laddats
 window.onload = () => {
@@ -16,7 +14,7 @@ async function loadCourses() {
             if (!response.ok) {
                 throw new Error("Fel vid anslutning till data...") // Felmeddelande om json-filen inte kan läsas in korrekt
             }
-        const data = await response.json(); // Omvandlar till array eller objekt
+        courses = await response.json(); // Omvandlar till array eller objekt
 
         console.table(data); // Skriver ut informationen i en tabell
     } catch(error) {
