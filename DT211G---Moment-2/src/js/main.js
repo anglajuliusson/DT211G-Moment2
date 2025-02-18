@@ -28,10 +28,10 @@ async function loadCourses() {
 }
 
 function printCourses(data) {
-    const coursesEl = document.getElementById("table");
+    const tableBody = document.getElementById("table-body");
 
     // Rensa DOM
-    coursesEl.innerHTML = "";
+    tableBody.innerHTML = "";
 
     // Sortera
     data.sort();
@@ -40,7 +40,13 @@ function printCourses(data) {
 
     // Skriv ut till DOM
     data.forEach (course => {
-        coursesEl.innerHTML += `<table>${course.code} ${course.coursename} ${course.progression}</table>`;
+        tableBody.innerHTML += `
+            <tr>
+                <td>${course.code}</td>
+                <td>${course.coursename}</td>
+                <td>${course.progression}</td>
+            </tr>
+        `; // Skriver ut i tbody
     });
 }
 
