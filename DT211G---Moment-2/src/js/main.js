@@ -1,6 +1,7 @@
 "use strict"
 
 let courses = [];
+let sorted = true;
 
 // Funktionen körs när sidan har laddats
 window.onload = () => {
@@ -8,6 +9,11 @@ window.onload = () => {
 
     // Händelsehanterare för sökruta
     document.getElementById("search").addEventListener("input", filterData);
+
+    // Händelsehanterare för sortering 
+    document.getElementById("code").addEventListener("click", sortCode);
+    document.getElementById("coursename").addEventListener("click", sortCourses);
+    document.getElementById("progression").addEventListener("click", sortProgression);
 }
 
 // Funktion som hämtar information
@@ -49,7 +55,7 @@ function printCourses(data) {
         `; // Skriver ut i tbody
     });
 }
-
+ // Funktion för sökruta
 function filterData() {
     const searchPhrase = document.getElementById("search").value;
 
@@ -60,4 +66,40 @@ function filterData() {
     );
 
     printCourses(filteredData);
+}
+// Funktion för sortering av kurskod
+function sortCode() {
+    sorted = !sorted; // Gör så att den kan växla från fallande till stigande
+    courses.sort((a, b) => {
+        if (sorted){
+            return b.code.localeCompare(a.code); 
+        } else {
+            return a.code.localeCompare(b.code);
+        }
+    });
+    printCourses(courses);
+}
+// Funktion för sortering av kursnamn
+function sortCourses() {
+    sorted = !sorted; // Gör så att den kan växla från fallande till stigande
+    courses.sort((a, b) => {
+        if (sorted){
+            return b.coursename.localeCompare(a.coursename); // A-Z
+        } else {
+            return a.coursename.localeCompare(b.coursename); // Z-A
+        }
+    });
+    printCourses(courses);
+}
+// Funktion för sortering progression
+function sortProgression() {
+    sorted = !sorted; // Gör så att den kan växla från fallande till stigande
+    courses.sort((a, b) => {
+        if (sorted){
+            return b.progression.localeCompare(a.progression); // A-B
+        } else {
+            return a.progression.localeCompare(b.progression); // B-A
+        }
+    });
+    printCourses(courses);
 }
