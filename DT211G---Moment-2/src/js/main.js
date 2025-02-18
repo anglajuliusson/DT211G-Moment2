@@ -5,6 +5,9 @@ let courses = [];
 // Funktionen körs när sidan har laddats
 window.onload = () => {
     loadCourses();
+
+    // Händelsehanterare för sökruta
+    document.getElementById("search").addEventListener("input", filterData);
 }
 
 // Funktion som hämtar information
@@ -17,7 +20,7 @@ async function loadCourses() {
         courses = await response.json(); // Omvandlar till array eller objekt
         printCourses(courses);
 
-        console.table(data); // Skriver ut informationen i en tabell
+        console.table(courses); // Skriver ut informationen i en tabell
     } catch(error) {
         console.error("error"); // Om något går fel skrivs felmeddelande ut
         document.querySelector("#error").innerHTML = "<p>Fel vid anslutning - prova igen senare</p>"; // Felmeddelande till användare
@@ -36,7 +39,19 @@ function printCourses(data) {
     console.table(data);
 
     // Skriv ut till DOM
-    courses.forEach (courses => {
-        coursesEl.innerHTML += `<table>${courses.code} ${courses.coursename} ${courses.progression}</table>`;
+    data.forEach (course => {
+        coursesEl.innerHTML += `<table>${course.code} ${course.coursename} ${course.progression}</table>`;
     });
+}
+
+function filterData() {
+    const searchPhrase = document.getElementById("search").value;
+
+    // Filtrera ut
+    const filteredData = courses.filter(course => 
+        course.coursename.toLowerCase().includes(searchPhrase.toLowerCase()) || // Kursnamn
+        course.code.toLowerCase().includes(searchPhrase.toLowerCase()) // Kurskod
+    );
+
+    printCourses(filteredData);
 }
