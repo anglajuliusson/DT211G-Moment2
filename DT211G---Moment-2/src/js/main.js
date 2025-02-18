@@ -33,7 +33,7 @@ function printCourses(data) {
     // Rensa DOM
     coursesEl.innerHTML = "";
 
-    // Sortera i bokstavsordning
+    // Sortera
     data.sort();
 
     console.table(data);
